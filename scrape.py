@@ -16,11 +16,14 @@ for course in courses:
         print(content)
         ext = content['url'].split('.')[-1]
         path = "/".join(content['path'])
-        if os.path.exists(f"courses/{course['name']}/{path}/{content['name']}.{ext}"):
+        filepath = f"courses/{course['name']}/{path}/{content['name']}.{ext}"
+        if os.path.exists(filepath):
             continue
         
         os.makedirs(f"courses/{course['name']}/{path}", exist_ok=True)
         r = scrapper.get_content(course['id'], content['url'])
 
-        with open(f"courses/{course['name']}/{path}/{content['name']}.{ext}", "wb") as f:
+        if len(filepath) > 215:
+            filepath = filepath[:210] + "." + ext
+        with open(filepath, "wb") as f:
             f.write(r)
