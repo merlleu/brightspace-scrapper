@@ -10,19 +10,19 @@ def extract_content(data, path = []):
     l = []
     if 'Modules' in data:
         for module in data['Modules']:
-            l += extract_content(module, path + [module.get('Title', '')])
+            l += extract_content(module, path + [sanitize(module.get('Title', ''))])
     if 'Topics' in data:
         for topic in data['Topics']:
             if topic['Url'].startswith('/content/'):
                 l.append({
-                    'name': topic['Title'],
+                    'name': sanitize(topic['Title']),
                     'path': path[:],
                     'url': topic['Url']
                 })
     return l
     
 def sanitize(s):
-    return s.replace('/', '_').replace(':', '_')
+    return s.replace('/', '_').replace(':', '_').strip()
 
 def get_content(scp, course, url):
     url = f"{scp.config.URL_BASE}/{url}"
