@@ -1,3 +1,5 @@
+# BrightSpace Scrapper 📚
+
 How to use it: 
 - Clone the repository
 - Install the requirements: 
