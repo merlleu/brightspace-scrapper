@@ -22,7 +22,12 @@ def extract_content(data, path = []):
     return l
     
 def sanitize(s):
-    return s.replace('/', '_').replace(':', '_').strip().replace('–', '-')
+    forbid = '<>:"/\\|?*'
+    s = s.replace('–', '-').strip()
+    for c in forbid:
+        s = s.replace(c, '_')
+    
+    return s
 
 def get_content(scp, course, url):
     url = f"{scp.config.URL_BASE}/{url}"
