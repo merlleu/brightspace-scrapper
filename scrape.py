@@ -14,10 +14,13 @@ for course in courses:
     
     for content in extract_content(r):
         print(content)
-        r = scrapper.get_content(course['id'], content['url'])
         ext = content['url'].split('.')[-1]
         path = "/".join(content['path'])
+        if os.path.exists(f"courses/{course['name']}/{path}/{content['name']}.{ext}"):
+            continue
         
         os.makedirs(f"courses/{course['name']}/{path}", exist_ok=True)
+        r = scrapper.get_content(course['id'], content['url'])
+
         with open(f"courses/{course['name']}/{path}/{content['name']}.{ext}", "wb") as f:
             f.write(r)
