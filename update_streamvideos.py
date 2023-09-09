@@ -1,5 +1,5 @@
 import os
-path = input()
+path = input("Enter path: ")
 
 def get_files(path):
     files = []
