@@ -85,10 +85,12 @@ def parse_courses_html(html):
 
     for row in bs.find('table').find_all('a'):
         id = row['href'].split('/')[-1]
+        semester = row.parent.parent.find_all('td')[1].text.strip()
         name = row.text
         courses.append({
             'id': id,
             'name': name,
+            'semester': semester
         })
         
 
